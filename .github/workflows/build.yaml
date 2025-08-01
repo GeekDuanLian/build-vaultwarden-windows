@@ -25,8 +25,8 @@ jobs:
         run: |
           mkdir build; cd build
           curl -fsSL "$( curl -fsSL 'https://api.github.com/repos/dani-garcia/vaultwarden/releases/latest' | jq -Mrc '.tarball_url' )" |
-          MSYS=winsymlinks:lnk tar -xz --strip-components=1
-          OPENSSL_DIR="$( cygpath -aw /ucrt64 )" cargo build --features sqlite --release
+          MSYS='winsymlinks:lnk' tar -xz --strip-components=1
+          OPENSSL_DIR="$( cygpath -aw /ucrt64 )" RUSTFLAGS="--remap-path-prefix=${USERPROFILE}=~" cargo build --features sqlite --release
       - name: Release
         env:
           GH_TOKEN: ${{ secrets.RELEASE_TOKEN }}
