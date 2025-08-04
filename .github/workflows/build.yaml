@@ -10,6 +10,9 @@ on:
 jobs:
   build:
     runs-on: windows-latest
+    defaults:
+      run:
+        shell: bash -eo pipefail {0}
     steps:
       - uses: actions/checkout@v4
       - uses: msys2/setup-msys2@v2
@@ -30,7 +33,6 @@ jobs:
       - name: Release
         env:
           GH_TOKEN: ${{ secrets.RELEASE_TOKEN }}
-        shell: bash -eo pipefail {0}
         run: |
           bin='build/target/release/vaultwarden.exe'
           ! gh release view result &>/dev/null &&
