@@ -10,9 +10,7 @@ on:
 jobs:
   build:
     runs-on: windows-latest
-    defaults:
-      run:
-        shell: bash -eo pipefail {0}
+    defaults: { run: { shell: 'bash --noprofile --norc -euo pipefail {0}' } }
     steps:
       - uses: actions/checkout@v4
       - uses: msys2/setup-msys2@v2
